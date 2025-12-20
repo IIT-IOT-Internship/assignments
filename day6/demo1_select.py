@@ -16,7 +16,9 @@ query = "SELECT * FROM sensor_readings"
 cursor = connection.cursor()
 
 # execute query
-cursor.execute(query, (sensor_id, moisture_lvl, date_time))
+query = "INSERT INTO soil_moisture VALUES (%s, %s, %s)"
+cursor.execute(query)
+
 
 
 # fetch all records

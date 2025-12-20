@@ -50,7 +50,8 @@ def update_record():
 def delete_record():
     sid = int(input("Enter Sensor ID to delete: "))
 
-    cur.execute(
+    cur.execute(1
+            
         "DELETE FROM soil_moisture WHERE sensor_id = %s",
         (sid,)
     )
