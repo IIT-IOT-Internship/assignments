@@ -1,18 +1,20 @@
+from flask import Flask, request, jsonify
 import mysql.connector
+from datetime import datetime
 
+app = Flask(__name__)
+
+# -------------------------------
+# Database Connection
+# -------------------------------
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
         password="root",
-        database="smart_home"
-
-from flask import Blueprint,jsonify
-from db_connection.py import get_db_connection
-
-delete_api = Blueprint("delete_api", __name__)
-
-@delete_api.route("/sensor/<int:id>", methods=["DELETE"])
+        database="sensor_db"
+    )
+@app.route("/sensor/<int:id>", methods=["DELETE"])
 def delete_sensor(id):
     con = get_db_connection()
     cur = con.cursor()
@@ -24,4 +26,3 @@ def delete_sensor(id):
     con.close()
 
     return jsonify({"message": "Sensor reading deleted"})
-    )

@@ -1,20 +1,21 @@
+from flask import Flask, request, jsonify
 import mysql.connector
+from datetime import datetime
 
+app = Flask(__name__)
+
+# -------------------------------
+# Database Connection
+# -------------------------------
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
         password="root",
-        database="smart_home"
+        database="sensor_db"
     )
 
-from flask import Blueprint, request, jsonify
-from db_config import get_db_connection
-from datetime import datetime
-
-create_api = Blueprint("create_api", __name__)
-
-@create_api.route("/sensor", methods=["POST"])
+@app.route("/sensor", methods=["POST"])
 def add_sensor():
     data = request.json
     con = get_db_connection()
@@ -34,4 +35,4 @@ def add_sensor():
     cur.close()
     con.close()
 
-    return jsonify({"message": "Sensor reading added"})
+    return jsonify({"message": "Sensor reading added successfully"})
